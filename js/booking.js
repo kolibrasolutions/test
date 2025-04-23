@@ -14,6 +14,8 @@ let selectedService = null;
 let selectedDate = null;
 let selectedTime = null;
 let availableTimeSlots = [];
+let googleCalendarConnected = false;
+let googleCalendarEvents = [];
 
 /**
  * Inicializa o sistema de agendamento
@@ -327,6 +329,72 @@ function loadAvailableTimeSlots() {
     // Limpar conteúdo existente
     timeSlotsContainer.innerHTML = '';
     
+    // Adicionar indicador de status do Google Calendar
+    const statusContainer = document.createElement('div');
+    statusContainer.className = 'google-calendar-status';
+    
+    if (typeof gapi !== 'undefined' && gapi.auth2 && gapi.auth2.getAuthInstance()) {
+        const isSignedIn = gapi.auth2.getAuthInstance().isSignedIn.get();
+        
+        if (isSignedIn) {
+            statusContainer.innerHTML = '<div class="status connected"><i class="fas fa-check-circle"></i> Conectado ao Google Calendar</div>';
+            googleCalendarConnected = true;
+            
+            // Adicionar classe especial ao container para mudar as cores
+            timeSlotsContainer.classList.add('google-calendar-connected');
+            
+            // Buscar eventos do Google Calendar
+            checkGoogleCalendarAvailability(selectedDate, function(busySlots) {
+                googleCalendarEvents = busySlots;
+                generateTimeSlots(timeSlotsContainer);
+            });
+        } else {
+            statusContainer.innerHTML = `
+                <div class="status disconnected">
+                    <i class="fas fa-exclamation-circle"></i> Não conectado ao Google Calendar
+                    <button id="connect-google-calendar" class="btn-connect">Conectar</button>
+                </div>
+            `;
+            googleCalendarConnected = false;
+            
+            // Remover classe especial do container
+            timeSlotsContainer.classList.remove('google-calendar-connected');
+            
+            // Gerar slots de tempo sem dados do Google Calendar
+            generateTimeSlots(timeSlotsContainer);
+            
+            // Adicionar evento para o botão de conexão
+            setTimeout(() => {
+                const connectBtn = document.getElementById('connect-google-calendar');
+                if (connectBtn) {
+                    connectBtn.addEventListener('click', function() {
+                        authenticateWithGoogle().then(() => {
+                            // Recarregar horários após autenticação
+                            loadAvailableTimeSlots();
+                        });
+                    });
+                }
+            }, 100);
+        }
+    } else {
+        statusContainer.innerHTML = '<div class="status error"><i class="fas fa-times-circle"></i> API do Google Calendar não disponível</div>';
+        googleCalendarConnected = false;
+        
+        // Remover classe especial do container
+        timeSlotsContainer.classList.remove('google-calendar-connected');
+        
+        // Gerar slots de tempo sem dados do Google Calendar
+        generateTimeSlots(timeSlotsContainer);
+    }
+    
+    timeSlotsContainer.appendChild(statusContainer);
+}
+
+/**
+ * Gera os slots de tempo para a data selecionada
+ * @param {HTMLElement} container - Container onde os slots serão renderizados
+ */
+function generateTimeSlots(container) {
     // Gerar horários disponíveis
     const { start, end, interval, lunchStart, lunchEnd } = bookingConfig.workingHours;
     
@@ -351,23 +419,49 @@ function loadAvailableTimeSlots() {
         
         // Determinar status do slot
         let status = 'available';
+        let source = '';
+        
         if (isLunchTime) {
             status = 'lunch';
         } else if (isPastTime) {
             status = 'booked';
+        } else if (googleCalendarConnected && googleCalendarEvents.length > 0) {
+            // Verificar se o horário está ocupado no Google Calendar
+            const slotStart = timeString;
+            const slotEndMinutes = minutes + selectedService.duration;
+            const slotEnd = convertMinutesToTime(slotEndMinutes);
+            
+            for (let i = 0; i < googleCalendarEvents.length; i++) {
+                const event = googleCalendarEvents[i];
+                
+                // Verificar se há sobreposição de horários
+                if ((slotStart >= event.start && slotStart < event.end) || 
+                    (slotEnd > event.start && slotEnd <= event.end) ||
+                    (slotStart <= event.start && slotEnd >= event.end)) {
+                    status = 'booked';
+                    source = 'google';
+                    break;
+                }
+            }
         } else {
             // Simular alguns horários já agendados (aleatoriamente)
             // Em uma implementação real, isso viria do banco de dados ou API
             if (Math.random() < 0.3) {
                 status = 'booked';
-            } else {
-                availableTimeSlots.push(timeString);
             }
+        }
+        
+        // Se o slot estiver disponível, adicionar à lista
+        if (status === 'available') {
+            availableTimeSlots.push(timeString);
         }
         
         // Criar elemento de slot de tempo
         const timeSlot = document.createElement('div');
         timeSlot.className = `time-slot ${status}`;
+        if (source === 'google') {
+            timeSlot.classList.add('google-event');
+        }
         timeSlot.textContent = timeString;
         
         // Adicionar evento de clique para slots disponíveis
@@ -391,7 +485,7 @@ function loadAvailableTimeSlots() {
             });
         }
         
-        timeSlotsContainer.appendChild(timeSlot);
+        container.appendChild(timeSlot);
     }
 }
 
@@ -406,6 +500,92 @@ function updateBookingSummary() {
     document.getElementById('summary-date').textContent = formatDate(selectedDate);
     document.getElementById('summary-time').textContent = selectedTime;
     document.getElementById('summary-price').textContent = formatCurrency(selectedService.price);
+    
+    // Configurar botão de adicionar ao calendário
+    const addToCalendarBtn = document.getElementById('btn-add-calendar');
+    if (addToCalendarBtn) {
+        // Sempre tornar o botão clicável
+        addToCalendarBtn.disabled = false;
+        
+        // Verificar se o Google Calendar está conectado
+        if (googleCalendarConnected) {
+            addToCalendarBtn.textContent = 'Adicionar ao Google Calendar';
+        } else {
+            addToCalendarBtn.textContent = 'Conectar ao Google Calendar';
+        }
+        
+        // Adicionar evento de clique
+        addToCalendarBtn.onclick = function() {
+            addBookingToGoogleCalendar();
+        };
+    }
+}
+
+/**
+ * Adiciona o agendamento ao Google Calendar
+ */
+function addBookingToGoogleCalendar() {
+    if (!selectedService || !selectedDate || !selectedTime) {
+        showNotification('Erro: Informações de agendamento incompletas.', 'error');
+        return;
+    }
+    
+    // Obter dados do cliente
+    const customerName = document.getElementById('customer-name').value;
+    const customerPhone = document.getElementById('customer-phone').value;
+    const customerEmail = document.getElementById('customer-email').value;
+    const customerNotes = document.getElementById('customer-notes').value;
+    
+    // Verificar se os campos obrigatórios estão preenchidos
+    if (!customerName || !customerPhone || !customerEmail) {
+        showNotification('Por favor, preencha todos os campos obrigatórios.', 'error');
+        return;
+    }
+    
+    // Criar objeto de agendamento
+    const booking = {
+        service: selectedService,
+        date: selectedDate,
+        time: selectedTime,
+        customer: {
+            name: customerName,
+            phone: customerPhone,
+            email: customerEmail,
+            notes: customerNotes
+        }
+    };
+    
+    // Criar evento para o Google Calendar
+    const startDateTime = getISODateTime(booking.date, booking.time);
+    const endDateTime = getISODateTime(booking.date, booking.time, booking.service.duration);
+    
+    const event = {
+        summary: `${booking.service.name} - ${booking.customer.name}`,
+        location: businessConfig.address,
+        description: `Agendamento para ${booking.service.name}. Cliente: ${booking.customer.name}. Telefone: ${booking.customer.phone}. Email: ${booking.customer.email}. Observações: ${booking.customer.notes || 'Nenhuma'}`,
+        start: {
+            dateTime: startDateTime,
+            timeZone: 'America/Sao_Paulo'
+        },
+        end: {
+            dateTime: endDateTime,
+            timeZone: 'America/Sao_Paulo'
+        },
+        reminders: {
+            useDefault: true
+        }
+    };
+    
+    // Adicionar evento ao Google Calendar
+    if (typeof addEventToGoogleCalendar === 'function') {
+        addEventToGoogleCalendar(event);
+    } else {
+        // Fallback para quando a API do Google não está disponível
+        const calendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(event.summary)}&dates=${startDateTime.replace(/[-:]/g, '').replace('.000', '')
+}/${endDateTime.replace(/[-:]/g, '').replace('.000', '')}&details=${encodeURIComponent(event.description)}&location=${encodeURIComponent(event.location)}&sf=true&output=xml`;
+        
+        window.open(calendarUrl, '_blank');
+    }
 }
 
 /**
@@ -459,111 +639,103 @@ function submitBooking(booking) {
     
     // Simular resposta do servidor após 1 segundo
     setTimeout(() => {
-        // Atualizar confirmação
-        document.getElementById('confirmation-service').textContent = booking.service.name;
-        document.getElementById('confirmation-date').textContent = formatDate(booking.date);
-        document.getElementById('confirmation-time').textContent = booking.time;
-        document.getElementById('confirmation-email').textContent = booking.customer.email;
+        // Simular sucesso
+        const success = true;
         
-        // Esconder etapa atual
-        document.getElementById('step-4').classList.remove('active');
-        
-        // Mostrar confirmação
-        document.getElementById('booking-confirmation').classList.add('active');
-        
-        // Adicionar evento para botão de adicionar ao calendário
-        setupAddToCalendarButton(booking);
-        
-        console.log('Agendamento confirmado!');
+        if (success) {
+            // Mostrar mensagem de sucesso
+            showBookingConfirmation(booking);
+            
+            // Adicionar ao Google Calendar se estiver conectado
+            if (googleCalendarConnected) {
+                addBookingToGoogleCalendar();
+            }
+        } else {
+            // Mostrar mensagem de erro
+            showNotification('Erro ao realizar agendamento. Por favor, tente novamente.', 'error');
+        }
     }, 1000);
 }
 
 /**
- * Configura o botão de adicionar ao calendário
+ * Mostra a confirmação de agendamento
  * @param {Object} booking - Dados do agendamento
  */
-function setupAddToCalendarButton(booking) {
-    const addToCalendarBtn = document.getElementById('btn-add-calendar');
+function showBookingConfirmation(booking) {
+    // Esconder formulário
+    const bookingForm = document.getElementById('booking-form');
+    bookingForm.style.display = 'none';
     
-    if (!addToCalendarBtn) return;
+    // Mostrar confirmação
+    const confirmationContainer = document.getElementById('booking-confirmation');
+    confirmationContainer.style.display = 'block';
     
-    addToCalendarBtn.addEventListener('click', function() {
-        // Criar evento para Google Calendar
-        const event = {
-            summary: `${booking.service.name} - ${businessConfig.name}`,
-            location: businessConfig.address,
-            description: `Agendamento para ${booking.service.name}. Duração: ${booking.service.duration} minutos.`,
-            start: {
-                dateTime: getISODateTime(booking.date, booking.time),
-                timeZone: 'America/Sao_Paulo'
-            },
-            end: {
-                dateTime: getISODateTime(booking.date, booking.time, booking.service.duration),
-                timeZone: 'America/Sao_Paulo'
-            },
-            reminders: {
-                useDefault: true
-            }
-        };
-        
-        // Verificar se a integração com Google Calendar está habilitada
-        if (googleCalendarConfig.enabled && typeof addEventToGoogleCalendar === 'function') {
-            addEventToGoogleCalendar(event);
-        } else {
-            // Fallback: criar arquivo ICS
-            createICSFile(event);
-        }
+    // Atualizar informações da confirmação
+    document.getElementById('confirmation-service').textContent = booking.service.name;
+    document.getElementById('confirmation-date').textContent = formatDate(booking.date);
+    document.getElementById('confirmation-time').textContent = booking.time;
+    document.getElementById('confirmation-name').textContent = booking.customer.name;
+    document.getElementById('confirmation-phone').textContent = booking.customer.phone;
+    document.getElementById('confirmation-email').textContent = booking.customer.email;
+    
+    // Mostrar notificação
+    showNotification('Agendamento realizado com sucesso!', 'success');
+}
+
+/**
+ * Mostra uma notificação
+ * @param {string} message - Mensagem da notificação
+ * @param {string} type - Tipo da notificação (success, error, info)
+ */
+function showNotification(message, type = 'info') {
+    // Verificar se o container de notificações existe
+    let notificationContainer = document.getElementById('notification-container');
+    
+    // Criar container se não existir
+    if (!notificationContainer) {
+        notificationContainer = document.createElement('div');
+        notificationContainer.id = 'notification-container';
+        document.body.appendChild(notificationContainer);
+    }
+    
+    // Criar notificação
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.innerHTML = `
+        <div class="notification-content">
+            <div class="notification-message">${message}</div>
+            <button class="notification-close">&times;</button>
+        </div>
+    `;
+    
+    // Adicionar notificação ao container
+    notificationContainer.appendChild(notification);
+    
+    // Adicionar evento para fechar notificação
+    const closeBtn = notification.querySelector('.notification-close');
+    closeBtn.addEventListener('click', function() {
+        notification.classList.add('closing');
+        setTimeout(() => {
+            notification.remove();
+        }, 300);
     });
+    
+    // Remover notificação após 5 segundos
+    setTimeout(() => {
+        if (notification.parentNode) {
+            notification.classList.add('closing');
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.remove();
+                }
+            }, 300);
+        }
+    }, 5000);
 }
 
 /**
- * Cria um arquivo ICS para download
- * @param {Object} event - Dados do evento
- */
-function createICSFile(event) {
-    // Implementação básica de arquivo ICS
-    const startDate = new Date(event.start.dateTime);
-    const endDate = new Date(event.end.dateTime);
-    
-    const icsContent = [
-        'BEGIN:VCALENDAR',
-        'VERSION:2.0',
-        'PRODID:-//Agendamento Online//BR',
-        'CALSCALE:GREGORIAN',
-        'BEGIN:VEVENT',
-        `SUMMARY:${event.summary}`,
-        `DTSTART:${formatDateForICS(startDate)}`,
-        `DTEND:${formatDateForICS(endDate)}`,
-        `LOCATION:${event.location}`,
-        `DESCRIPTION:${event.description}`,
-        'END:VEVENT',
-        'END:VCALENDAR'
-    ].join('\r\n');
-    
-    // Criar link para download
-    const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
-    const url = URL.createObjectURL(blob);
-    
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = 'agendamento.ics';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-}
-
-/**
- * Formata uma data para o formato ICS
- * @param {Date} date - Data a ser formatada
- * @returns {string} - Data formatada para ICS
- */
-function formatDateForICS(date) {
-    return date.toISOString().replace(/-|:|\.\d+/g, '');
-}
-
-/**
- * Converte uma string de horário (HH:MM) para minutos desde o início do dia
- * @param {string} timeString - Horário no formato HH:MM
+ * Converte uma string de horário para minutos desde o início do dia
+ * @param {string} timeString - String de horário no formato HH:MM
  * @returns {number} - Minutos desde o início do dia
  */
 function convertTimeToMinutes(timeString) {
@@ -572,9 +744,9 @@ function convertTimeToMinutes(timeString) {
 }
 
 /**
- * Converte minutos desde o início do dia para uma string de horário (HH:MM)
+ * Converte minutos desde o início do dia para uma string de horário
  * @param {number} minutes - Minutos desde o início do dia
- * @returns {string} - Horário no formato HH:MM
+ * @returns {string} - String de horário no formato HH:MM
  */
 function convertMinutesToTime(minutes) {
     const hours = Math.floor(minutes / 60);
@@ -583,19 +755,38 @@ function convertMinutesToTime(minutes) {
 }
 
 /**
- * Obtém a data e hora no formato ISO para o Google Calendar
+ * Formata uma data para exibição
+ * @param {Date} date - Data a ser formatada
+ * @returns {string} - Data formatada
+ */
+function formatDate(date) {
+    const options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
+    return date.toLocaleDateString('pt-BR', options);
+}
+
+/**
+ * Formata um valor para exibição como moeda
+ * @param {number} value - Valor a ser formatado
+ * @returns {string} - Valor formatado como moeda
+ */
+function formatCurrency(value) {
+    return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+}
+
+/**
+ * Obtém uma string de data e hora no formato ISO
  * @param {Date} date - Data
- * @param {string} time - Horário no formato HH:MM
+ * @param {string} timeString - String de horário no formato HH:MM
  * @param {number} durationMinutes - Duração em minutos (opcional)
  * @returns {string} - Data e hora no formato ISO
  */
-function getISODateTime(date, time, durationMinutes = 0) {
-    const [hours, minutes] = time.split(':').map(Number);
+function getISODateTime(date, timeString, durationMinutes = 0) {
+    const [hours, minutes] = timeString.split(':').map(Number);
     
     const dateTime = new Date(date);
     dateTime.setHours(hours, minutes, 0, 0);
     
-    if (durationMinutes > 0) {
+    if (durationMinutes) {
         dateTime.setMinutes(dateTime.getMinutes() + durationMinutes);
     }
     

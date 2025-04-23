@@ -1,0 +1,109 @@
+/* Estilos adicionais para integração com Google Calendar */
+
+/* Status do Google Calendar */
+.google-calendar-status {
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #f8f9fa;
+}
+
+.google-calendar-status .status {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.google-calendar-status .status i {
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+.google-calendar-status .connected {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.google-calendar-status .disconnected {
+    background-color: #f8d7da;
+    color: #721c24;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.google-calendar-status .error {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.btn-connect {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btn-connect:hover {
+    background-color: #0069d9;
+}
+
+/* Cores dos slots de tempo quando conectado ao Google Calendar */
+.time-slots-container.google-calendar-connected .time-slot.available {
+    background-color: #d1e7dd;
+    border-color: #badbcc;
+}
+
+.time-slots-container.google-calendar-connected .time-slot.booked {
+    background-color: #f8d7da;
+    border-color: #f5c2c7;
+}
+
+.time-slots-container.google-calendar-connected .time-slot.google-event {
+    background-color: #e2e3e5;
+    border-color: #d3d6d8;
+    position: relative;
+}
+
+.time-slots-container.google-calendar-connected .time-slot.google-event::after {
+    content: "Google Calendar";
+    position: absolute;
+    bottom: 2px;
+    right: 5px;
+    font-size: 8px;
+    color: #6c757d;
+}
+
+/* Botão de adicionar ao calendário */
+#btn-add-calendar {
+    background-color: #4285F4;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 15px;
+    font-weight: 500;
+}
+
+#btn-add-calendar:hover {
+    background-color: #357ae8;
+}
+
+#btn-add-calendar:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+#btn-add-calendar::before {
+    content: "\f1a0";
+    font-family: "Font Awesome 5 Free";
+    margin-right: 8px;
+}
