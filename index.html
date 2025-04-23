@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agendamento Online - Template Personalizável</title>
+    <meta name="description" content="Sistema de agendamento online para profissionais autônomos e pequenos negócios. Agende seu horário de forma rápida e prática.">
+    <meta name="keywords" content="agendamento online, marcar horário, barbearia, manicure, cabeleireiro, serviços">
+    <meta name="author" content="Template Agendamento">
+    <meta name="robots" content="index, follow">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://www.seudominio.com.br/">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.seudominio.com.br/">
+    <meta property="og:title" content="Agendamento Online - Marque seu horário">
+    <meta property="og:description" content="Sistema de agendamento online para profissionais autônomos e pequenos negócios. Agende seu horário de forma rápida e prática.">
+    <meta property="og:image" content="img/share-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="Agendamento Online">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://www.seudominio.com.br/">
+    <meta property="twitter:title" content="Agendamento Online - Marque seu horário">
+    <meta property="twitter:description" content="Sistema de agendamento online para profissionais autônomos e pequenos negócios. Agende seu horário de forma rápida e prática.">
+    <meta property="twitter:image" content="img/share-image.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
+    
+    <!-- Preload de recursos críticos -->
+    <link rel="preload" href="img/logo.png" as="image">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Navegação -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo" aria-label="Página inicial">
+                <img src="img/logo.png" alt="Logo Agendamento Online" width="150" height="70">
+            </a>
+            
+            <div class="nav-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            
+            <ul class="nav-menu" id="nav-menu" role="menubar">
+                <li role="none"><a href="#home" role="menuitem">Home</a></li>
+                <li role="none"><a href="#servicos" role="menuitem">Serviços</a></li>
+                <li role="none"><a href="#depoimentos" role="menuitem">Depoimentos</a></li>
+                <li role="none"><a href="#contato" role="menuitem">Contato</a></li>
+                <li role="none"><a href="#agendar" class="btn-nav" role="menuitem">Agendar</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- Header da Página -->
+    <header class="page-header" id="home">
+        <div class="container">
+            <h1>Agendamento Online</h1>
+            <p>Marque seu horário de forma rápida e prática</p>
+            <a href="#agendar" class="btn btn-primary">Agendar Agora</a>
+        </div>
+    </header>
+    
+    <!-- Sobre Nós -->
+    <section class="about-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Sobre Nós</h2>
+                <p>Conheça um pouco sobre nosso estabelecimento</p>
+            </div>
+            
+            <div class="about-content">
+                <div class="about-image">
+                    <img src="img/about.jpg" alt="Imagem do estabelecimento" class="img-fluid">
+                </div>
+                <div class="about-text">
+                    <h3>Bem-vindo ao <span class="business-name">Nome do Estabelecimento</span></h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque. Duis vulputate commodo lectus, ac blandit elit tincidunt id.</p>
+                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+                    
+                    <div class="about-features">
+                        <div class="feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Profissionais qualificados</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Ambiente aconchegante</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Produtos de qualidade</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Atendimento personalizado</span>
+                        </div>
+                    </div>
+                    
+                    <div class="business-info">
+                        <div class="info-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span id="business-address">Rua Exemplo, 123 - Bairro - Cidade/UF</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-phone"></i>
+                            <span id="business-phone">(00) 00000-0000</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-clock"></i>
+                            <span id="business-hours">Seg-Sex: 9h às 19h | Sáb: 9h às 16h</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Serviços -->
+    <section class="services-section" id="servicos">
+        <div class="container">
+            <div class="section-header">
+                <h2>Nossos Serviços</h2>
+                <p>Conheça os serviços que oferecemos</p>
+            </div>
+            
+            <div class="services-grid" id="services-container">
+                <!-- Serviços serão carregados dinamicamente via JavaScript -->
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-cut"></i>
+                    </div>
+                    <h3>Corte de Cabelo</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                    <div class="service-price">R$ 35,00</div>
+                    <a href="#agendar" class="btn btn-sm btn-outline">Agendar</a>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-razor"></i>
+                    </div>
+                    <h3>Barba</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                    <div class="service-price">R$ 25,00</div>
+                    <a href="#agendar" class="btn btn-sm btn-outline">Agendar</a>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-spray-can"></i>
+                    </div>
+                    <h3>Acabamento</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                    <div class="service-price">R$ 15,00</div>
+                    <a href="#agendar" class="btn btn-sm btn-outline">Agendar</a>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-magic"></i>
+                    </div>
+                    <h3>Combo Completo</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                    <div class="service-price">R$ 60,00</div>
+                    <a href="#agendar" class="btn btn-sm btn-outline">Agendar</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Depoimentos -->
+    <section class="testimonials-section" id="depoimentos">
+        <div class="container">
+            <div class="section-header">
+                <h2>Depoimentos</h2>
+                <p>O que nossos clientes dizem sobre nós</p>
+            </div>
+            
+            <div class="testimonials-slider" id="testimonials-container">
+                <!-- Depoimentos serão carregados dinamicamente via JavaScript -->
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"Excelente atendimento! Profissionais muito qualificados e ambiente super agradável. Recomendo a todos!"</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="img/client1.jpg" alt="Cliente 1" class="author-image">
+                        <div class="author-info">
+                            <h4>João Silva</h4>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"Sempre saio satisfeito! O sistema de agendamento online é muito prático e facilita muito a vida."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="img/client2.jpg" alt="Cliente 2" class="author-image">
+                        <div class="author-info">
+                            <h4>Maria Oliveira</h4>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"Atendimento de primeira qualidade! Ambiente limpo e organizado. Recomendo fortemente!"</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="img/client3.jpg" alt="Cliente 3" class="author-image">
+                        <div class="author-info">
+                            <h4>Pedro Santos</h4>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Sistema de Agendamento -->
+    <section class="booking-section" id="agendar">
+        <div class="container">
+            <div class="section-header">
+                <h2>Agende seu Horário</h2>
+                <p>Escolha o serviço, data e horário de sua preferência</p>
+            </div>
+            
+            <div class="booking-container">
+                <div class="booking-steps">
+                    <div class="step active" data-step="1">
+                        <div class="step-number">1</div>
+                        <div class="step-text">Serviço</div>
+                    </div>
+                    <div class="step" data-step="2">
+                        <div class="step-number">2</div>
+                        <div class="step-text">Data</div>
+                    </div>
+                    <div class="step" data-step="3">
+                        <div class="step-number">3</div>
+                        <div class="step-text">Horário</div>
+                    </div>
+                    <div class="step" data-step="4">
+                        <div class="step-number">4</div>
+                        <div class="step-text">Confirmação</div>
+                    </div>
+                </div>
+                
+                <div class="booking-content">
+                    <!-- Etapa 1: Seleção de Serviço -->
+                    <div class="booking-step-content active" id="step-1">
+                        <h3>Selecione o Serviço</h3>
+                        <div class="service-selection" id="service-selection">
+                            <!-- Serviços serão carregados dinamicamente via JavaScript -->
+                            <div class="service-option" data-service-id="1" data-service-name="Corte de Cabelo" data-service-price="35.00" data-service-duration="30">
+                                <div class="service-option-info">
+                                    <h4>Corte de Cabelo</h4>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                    <div class="service-option-details">
+                                        <span class="service-option-price">R$ 35,00</span>
+                                        <span class="service-option-duration"><i class="far fa-clock"></i> 30 min</span>
+                                    </div>
+                                </div>
+                                <div class="service-option-select">
+                                    <button class="btn-select">Selecionar</button>
+                                </div>
+                            </div>
+                            
+                            <div class="service-option" data-service-id="2" data-service-name="Barba" data-service-price="25.00" data-service-duration="20">
+                                <div class="service-option-info">
+                                    <h4>Barba</h4>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                    <div class="service-option-details">
+                                        <span class="service-option-price">R$ 25,00</span>
+                                        <span class="service-option-duration"><i class="far fa-clock"></i> 20 min</span>
+                                    </div>
+                                </div>
+                                <div class="service-option-select">
+                                    <button class="btn-select">Selecionar</button>
+                                </div>
+                            </div>
+                            
+                            <div class="service-option" data-service-id="3" data-service-name="Acabamento" data-service-price="15.00" data-service-duration="15">
+                                <div class="service-option-info">
+                                    <h4>Acabamento</h4>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                    <div class="service-option-details">
+                                        <span class="service-option-price">R$ 15,00</span>
+                                        <span class="service-option-duration"><i class="far fa-clock"></i> 15 min</span>
+                                    </div>
+                                </div>
+                                <div class="service-option-select">
+                                    <button class="btn-select">Selecionar</button>
+                                </div>
+                            </div>
+                            
+                            <div class="service-option" data-service-id="4" data-service-name="Combo Completo" data-service-price="60.00" data-service-duration="60">
+                                <div class="service-option-info">
+                                    <h4>Combo Completo</h4>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                    <div class="service-option-details">
+                                        <span class="service-option-price">R$ 60,00</span>
+                                        <span class="service-option-duration"><i class="far fa-clock"></i> 60 min</span>
+                                    </div>
+                                </div>
+                                <div class="service-option-select">
+                                    <button class="btn-select">Selecionar</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="booking-navigation">
+                            <button class="btn btn-primary btn-next" disabled>Próximo</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Etapa 2: Seleção de Data -->
+                    <div class="booking-step-content" id="step-2">
+                        <h3>Selecione a Data</h3>
+                        <div class="date-selection">
+                            <div class="calendar" id="booking-calendar">
+                                <!-- Calendário será gerado via JavaScript -->
+                            </div>
+                        </div>
+                        
+                        <div class="booking-navigation">
+                            <button class="btn btn-outline btn-prev">Voltar</button>
+                            <button class="btn btn-primary btn-next" disabled>Próximo</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Etapa 3: Seleção de Horário -->
+                    <div class="booking-step-content" id="step-3">
+                        <h3>Selecione o Horário</h3>
+                        <div class="time-selection" id="time-slots">
+                            <!-- Horários serão gerados via JavaScript -->
+                            <div class="time-slots-container">
+                                <div class="time-slot available">09:00</div>
+                                <div class="time-slot available">09:30</div>
+                                <div class="time-slot booked">10:00</div>
+                                <div class="time-slot booked">10:30</div>
+                                <div class="time-slot available">11:00</div>
+                                <div class="time-slot available">11:30</div>
+                                <div class="time-slot booked">12:00</div>
+                                <div class="time-slot lunch">12:30</div>
+                                <div class="time-slot lunch">13:00</div>
+                                <div class="time-slot available">13:30</div>
+                                <div class="time-slot available">14:00</div>
+                                <div class="time-slot booked">14:30</div>
+                                <div class="time-slot available">15:00</div>
+                                <div class="time-slot available">15:30</div>
+                                <div class="time-slot booked">16:00</div>
+                                <div class="time-slot available">16:30</div>
+                                <div class="time-slot available">17:00</div>
+                                <div class="time-slot booked">17:30</div>
+                                <div class="time-slot available">18:00</div>
+                                <div class="time-slot available">18:30</div>
+                            </div>
+                            
+                            <div class="time-slots-legend">
+                                <div class="legend-item">
+                                    <span class="legend-color available"></span>
+                                    <span class="legend-text">Disponível</span>
+                                </div>
+                                <div class="legend-item">
+                                    <span class="legend-color booked"></span>
+                                    <span class="legend-text">Ocupado</span>
+                                </div>
+                                <div class="legend-item">
+                                    <span class="legend-color lunch"></span>
+                                    <span class="legend-text">Horário de Almoço</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="booking-navigation">
+                            <button class="btn btn-outline btn-prev">Voltar</button>
+                            <button class="btn btn-primary btn-next" disabled>Próximo</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Etapa 4: Confirmação -->
+                    <div class="booking-step-content" id="step-4">
+                        <h3>Confirme seu Agendamento</h3>
+                        <div class="booking-summary">
+                            <div class="summary-item">
+                                <span class="summary-label">Serviço:</span>
+                                <span class="summary-value" id="summary-service">Corte de Cabelo</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">Data:</span>
+                                <span class="summary-value" id="summary-date">15/05/2025</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">Horário:</span>
+                                <span class="summary-value" id="summary-time">14:30</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">Preço:</span>
+                                <span class="summary-value" id="summary-price">R$ 35,00</span>
+                            </div>
+                        </div>
+                        
+                        <div class="customer-info">
+                            <h4>Seus Dados</h4>
+                            <form id="booking-form">
+                                <div class="form-group">
+                                    <label for="customer-name">Nome Completo</label>
+                                    <input type="text" id="customer-name" name="customer-name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="customer-phone">Telefone</label>
+                                    <input type="tel" id="customer-phone" name="customer-phone" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="customer-email">E-mail</label>
+                                    <input type="email" id="customer-email" name="customer-email" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="customer-notes">Observações (opcional)</label>
+                                    <textarea id="customer-notes" name="customer-notes" rows="3"></textarea>
+                                </div>
+                            </form>
+                        </div>
+                        
+                        <div class="booking-navigation">
+                            <button class="btn btn-outline btn-prev">Voltar</button>
+                            <button class="btn btn-primary" id="btn-confirm">Confirmar Agendamento</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Confirmação de Agendamento -->
+                    <div class="booking-step-content" id="booking-confirmation">
+                        <div class="confirmation-content">
+                            <div class="confirmation-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <h3>Agendamento Confirmado!</h3>
+                            <p>Seu horário foi agendado com sucesso.</p>
+                            <div class="confirmation-details">
+                                <div class="confirmation-item">
+                                    <span class="confirmation-label">Serviço:</span>
+                                    <span class="confirmation-value" id="confirmation-service">Corte de Cabelo</span>
+                                </div>
+                                <div class="confirmation-item">
+                                    <span class="confirmation-label">Data:</span>
+                                    <span class="confirmation-value" id="confirmation-date">15/05/2025</span>
+                                </div>
+                                <div class="confirmation-item">
+                                    <span class="confirmation-label">Horário:</span>
+                                    <span class="confirmation-value" id="confirmation-time">14:30</span>
+                                </div>
+                            </div>
+                            <p>Enviamos um e-mail de confirmação para <span id="confirmation-email">seu@email.com</span>.</p>
+                            <p>Você também receberá um lembrete 24 horas antes do seu agendamento.</p>
+                            <div class="confirmation-actions">
+                                <a href="index.html" class="btn btn-primary">Voltar para Home</a>
+                                <button class="btn btn-outline" id="btn-add-calendar">Adicionar ao Calendário</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contato -->
+    <section class="contact-section" id="contato">
+        <div class="container">
+            <div class="section-header">
+                <h2>Contato</h2>
+                <p>Entre em contato conosco</p>
+            </div>
+            
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Informações de Contato</h3>
+                    <div class="info-list">
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="info-content">
+                                <h4>Endereço</h4>
+                                <p id="contact-address">Rua Exemplo, 123 - Bairro - Cidade/UF</p>
+                            </div>
+                        </div>
+                        
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="info-content">
+                                <h4>Telefone</h4>
+                                <p id="contact-phone">(00) 00000-0000</p>
+                            </div>
+                        </div>
+                        
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="info-content">
+                                <h4>E-mail</h4>
+                                <p id="contact-email">contato@exemplo.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="info-content">
+                                <h4>Horário de Funcionamento</h4>
+                                <p id="contact-hours">Seg-Sex: 9h às 19h | Sáb: 9h às 16h</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="social-links">
+                        <a href="#" class="social-link" id="social-instagram" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link" id="social-facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link" id="social-whatsapp" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                
+                <div class="contact-map">
+                    <iframe id="google-map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3675.356219020248!2d-43.18618388503454!3d-22.90692998501355!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x997f58a6a00a9d%3A0x3f251d85272f76f7!2sAv.%20Rio%20Branco%2C%20Rio%20de%20Janeiro%20-%20RJ!5e0!3m2!1spt-BR!2sbr!4v1650000000000!5m2!1spt-BR!2sbr" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="img/logo.png" alt="Logo Agendamento Online" class="footer-logo-img">
+                    <p>Sistema de agendamento online para profissionais autônomos e pequenos negócios.</p>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="footer-col">
+                        <h4>Links Rápidos</h4>
+                        <ul>
+                            <li><a href="#home">Home</a></li>
+                            <li><a href="#servicos">Serviços</a></li>
+                            <li><a href="#depoimentos">Depoimentos</a></li>
+                            <li><a href="#contato">Contato</a></li>
+                            <li><a href="#agendar">Agendar</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-col">
+                        <h4>Serviços</h4>
+                        <ul id="footer-services">
+                            <li><a href="#agendar">Corte de Cabelo</a></li>
+                            <li><a href="#agendar">Barba</a></li>
+                            <li><a href="#agendar">Acabamento</a></li>
+                            <li><a href="#agendar">Combo Completo</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-col">
+                        <h4>Contato</h4>
+                        <ul>
+                            <li><i class="fas fa-map-marker-alt"></i> <span id="footer-address">Rua Exemplo, 123 - Bairro - Cidade/UF</span></li>
+                            <li><i class="fas fa-phone"></i> <span id="footer-phone">(00) 00000-0000</span></li>
+                            <li><i class="fas fa-envelope"></i> <span id="footer-email">contato@exemplo.com</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; <span id="current-year">2025</span> <span id="business-name-footer">Nome do Estabelecimento</span>. Todos os direitos reservados.</p>
+                <p>CNPJ: <span id="business-cnpj">00.000.000/0001-00</span></p>
+                <p>Desenvolvido por <a href="#" target="_blank">Sua Empresa</a></p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Modal de Agendamento Bem-sucedido -->
+    <div class="modal" id="booking-success-modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <div class="modal-body">
+                <div class="success-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h3>Agendamento Confirmado!</h3>
+                <p>Seu horário foi agendado com sucesso.</p>
+                <div class="booking-details">
+                    <p><strong>Serviço:</strong> <span id="modal-service">Corte de Cabelo</span></p>
+                    <p><strong>Data:</strong> <span id="modal-date">15/05/2025</span></p>
+                    <p><strong>Horário:</strong> <span id="modal-time">14:30</span></p>
+                </div>
+                <p>Enviamos um e-mail de confirmação para você.</p>
+                <div class="modal-actions">
+                    <button class="btn btn-primary" id="modal-close-btn">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- JavaScript -->
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/booking.js"></script>
+    <script src="js/calendar-integration.js"></script>
+</body>
+</html>

@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel de Configuração - Sistema de Agendamento</title>
+    <meta name="robots" content="noindex, nofollow">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/config-panel.css">
+</head>
+<body>
+    <!-- Navegação -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo" aria-label="Página inicial">
+                <img src="img/logo.png" alt="Logo Agendamento Online" width="150" height="70">
+            </a>
+            
+            <div class="nav-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            
+            <ul class="nav-menu" id="nav-menu" role="menubar">
+                <li role="none"><a href="index.html" role="menuitem">Visualizar Site</a></li>
+                <li role="none"><a href="#" class="active" role="menuitem">Painel de Configuração</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- Header da Página -->
+    <header class="page-header">
+        <div class="container">
+            <h1>Painel de Configuração</h1>
+            <p>Personalize seu site de agendamento</p>
+        </div>
+    </header>
+    
+    <!-- Painel de Configuração -->
+    <section class="config-section" id="config-panel">
+        <div class="container">
+            <div class="config-container">
+                <div class="config-sidebar">
+                    <ul class="config-nav">
+                        <li><a href="#basic-info" class="active">Informações Básicas</a></li>
+                        <li><a href="#services">Serviços</a></li>
+                        <li><a href="#testimonials">Depoimentos</a></li>
+                        <li><a href="#booking">Agendamento</a></li>
+                        <li><a href="#google-calendar">Google Calendar</a></li>
+                        <li><a href="#appearance">Aparência</a></li>
+                    </ul>
+                    
+                    <div class="config-actions">
+                        <button type="button" id="preview-config" class="btn btn-secondary">Visualizar</button>
+                        <button type="button" id="reset-config" class="btn btn-outline">Restaurar Padrões</button>
+                    </div>
+                </div>
+                
+                <div class="config-content">
+                    <form id="config-form">
+                        <!-- Informações Básicas -->
+                        <div class="config-section active" id="basic-info">
+                            <h2>Informações Básicas</h2>
+                            
+                            <div class="form-group">
+                                <label for="business-name">Nome do Estabelecimento</label>
+                                <input type="text" id="business-name" name="business-name" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="business-slogan">Slogan</label>
+                                <input type="text" id="business-slogan" name="business-slogan">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="business-description">Descrição</label>
+                                <textarea id="business-description" name="business-description" rows="3"></textarea>
+                            </div>
+                            
+                            <h3>Informações de Contato</h3>
+                            
+                            <div class="form-group">
+                                <label for="business-address">Endereço</label>
+                                <input type="text" id="business-address" name="business-address" required>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="business-phone">Telefone</label>
+                                    <input type="tel" id="business-phone" name="business-phone" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="business-whatsapp">WhatsApp</label>
+                                    <input type="tel" id="business-whatsapp" name="business-whatsapp">
+                                    <small>Formato internacional (ex: 5511999999999)</small>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="business-email">E-mail</label>
+                                <input type="email" id="business-email" name="business-email" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="business-hours">Horário de Funcionamento</label>
+                                <input type="text" id="business-hours" name="business-hours" required>
+                                <small>Ex: Seg-Sex: 9h às 19h | Sáb: 9h às 16h</small>
+                            </div>
+                            
+                            <h3>Redes Sociais</h3>
+                            
+                            <div class="form-group">
+                                <label for="social-instagram">Instagram</label>
+                                <input type="url" id="social-instagram" name="social-instagram">
+                                <small>URL completa (ex: https://www.instagram.com/seuusuario)</small>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="social-facebook">Facebook</label>
+                                <input type="url" id="social-facebook" name="social-facebook">
+                                <small>URL completa (ex: https://www.facebook.com/suapagina)</small>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="social-tiktok">TikTok</label>
+                                    <input type="url" id="social-tiktok" name="social-tiktok">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="social-youtube">YouTube</label>
+                                    <input type="url" id="social-youtube" name="social-youtube">
+                                </div>
+                            </div>
+                            
+                            <h3>Localização</h3>
+                            
+                            <div class="form-group">
+                                <label for="map-location">URL do Google Maps</label>
+                                <input type="text" id="map-location" name="map-location" required>
+                                <small>URL do iframe do Google Maps</small>
+                            </div>
+                            
+                            <h3>Informações Legais</h3>
+                            
+                            <div class="form-group">
+                                <label for="business-cnpj">CNPJ</label>
+                                <input type="text" id="business-cnpj" name="business-cnpj">
+                            </div>
+                        </div>
+                        
+                        <!-- Serviços -->
+                        <div class="config-section" id="services">
+                            <h2>Serviços</h2>
+                            <p>Configure os serviços oferecidos pelo seu estabelecimento.</p>
+                            
+                            <div id="services-container">
+                                <!-- Serviços serão carregados dinamicamente via JavaScript -->
+                            </div>
+                            
+                            <h3>Visualização</h3>
+                            <div class="preview-container" id="service-previews">
+                                <!-- Previews de serviços serão carregados dinamicamente via JavaScript -->
+                            </div>
+                        </div>
+                        
+                        <!-- Depoimentos -->
+                        <div class="config-section" id="testimonials">
+                            <h2>Depoimentos</h2>
+                            <p>Configure os depoimentos de clientes que serão exibidos no site.</p>
+                            
+                            <div id="testimonials-container">
+                                <!-- Depoimentos serão carregados dinamicamente via JavaScript -->
+                            </div>
+                            
+                            <h3>Visualização</h3>
+                            <div class="preview-container" id="testimonial-previews">
+                                <!-- Previews de depoimentos serão carregados dinamicamente via JavaScript -->
+                            </div>
+                        </div>
+                        
+                        <!-- Agendamento -->
+                        <div class="config-section" id="booking">
+                            <h2>Configurações de Agendamento</h2>
+                            
+                            <h3>Horário de Funcionamento</h3>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="working-hours-start">Horário de Início</label>
+                                    <input type="time" id="working-hours-start" name="working-hours-start" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="working-hours-end">Horário de Término</label>
+                                    <input type="time" id="working-hours-end" name="working-hours-end" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="working-hours-interval">Intervalo entre Agendamentos (minutos)</label>
+                                <input type="number" id="working-hours-interval" name="working-hours-interval" min="5" step="5" required>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="working-hours-lunch-start">Início do Almoço</label>
+                                    <input type="time" id="working-hours-lunch-start" name="working-hours-lunch-start">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="working-hours-lunch-end">Fim do Almoço</label>
+                                    <input type="time" id="working-hours-lunch-end" name="working-hours-lunch-end">
+                                </div>
+                            </div>
+                            
+                            <h3>Dias de Funcionamento</h3>
+                            
+                            <div class="form-group checkbox-group">
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="working-day-0" name="working-day-0">
+                                    <label for="working-day-0">Domingo</label>
+                                </div>
+                                
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="working-day-1" name="working-day-1">
+                                    <label for="working-day-1">Segunda-feira</label>
+                                </div>
+                                
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="working-day-2" name="working-day-2">
+                                    <label for="working-day-2">Terça-feira</label>
+                                </div>
+                                
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="working-day-3" name="working-day-3">
+                                    <label for="working-day-3">Quarta-feira</label>
+                                </div>
+                                
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="working-day-4" name="working-day-4">
+                                    <label for="working-day-4">Quinta-feira</label>
+                                </div>
+                                
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="working-day-5" name="working-day-5">
+                                    <label for="working-day-5">Sexta-feira</label>
+                                </div>
+                                
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="working-day-6" name="working-day-6">
+                                    <label for="working-day-6">Sábado</label>
+                                </div>
+                            </div>
+                            
+                            <h3>Outras Configurações</h3>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="max-days-advance">Máximo de Dias para Agendamento</label>
+                                    <input type="number" id="max-days-advance" name="max-days-advance" min="1" required>
+                                    <small>Quantos dias no futuro os clientes podem agendar</small>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="min-time-advance">Tempo Mínimo de Antecedência (horas)</label>
+                                    <input type="number" id="min-time-advance" name="min-time-advance" min="0" required>
+                                    <small>Quantas horas antes é necessário agendar</small>
+                                </div>
+                            </div>
+                            
+                            <h3>Notificações</h3>
+                            
+                            <div class="form-group checkbox-group">
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="notification-email" name="notification-email">
+                                    <label for="notification-email">Enviar confirmação por e-mail</label>
+                                </div>
+                                
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="notification-reminder" name="notification-reminder">
+                                    <label for="notification-reminder">Enviar lembrete antes do agendamento</label>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="notification-reminder-hours">Horas antes para enviar lembrete</label>
+                                <input type="number" id="notification-reminder-hours" name="notification-reminder-hours" min="1">
+                            </div>
+                        </div>
+                        
+                        <!-- Google Calendar -->
+                        <div class="config-section" id="google-calendar">
+                            <h2>Integração com Google Calendar</h2>
+                            
+                            <div class="form-group checkbox-group">
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="google-calendar-enabled" name="google-calendar-enabled">
+                                    <label for="google-calendar-enabled">Ativar integração com Google Calendar</label>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="google-calendar-id">ID do Calendário</label>
+                                <input type="text" id="google-calendar-id" name="google-calendar-id">
+                                <small>Geralmente "primary" para o calendário principal</small>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="google-calendar-api-key">Chave de API</label>
+                                <input type="text" id="google-calendar-api-key" name="google-calendar-api-key">
+                                <small>Obtenha no Google Cloud Console</small>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="google-calendar-client-id">ID do Cliente OAuth</label>
+                                <input type="text" id="google-calendar-client-id" name="google-calendar-client-id">
+                                <small>Obtenha no Google Cloud Console</small>
+                            </div>
+                            
+                            <div class="info-box">
+                                <h4>Como configurar a integração com Google Calendar</h4>
+                                <ol>
+                                    <li>Acesse o <a href="https://console.cloud.google.com/" target="_blank">Google Cloud Console</a></li>
+                                    <li>Crie um novo projeto</li>
+                                    <li>Ative a API do Google Calendar</li>
+                                    <li>Crie credenciais (Chave de API e ID do Cliente OAuth)</li>
+                                    <li>Configure as origens JavaScript autorizadas</li>
+                                    <li>Copie as credenciais para os campos acima</li>
+                                </ol>
+                                <p>Para mais detalhes, consulte a <a href="https://developers.google.com/calendar/api/quickstart/js" target="_blank">documentação oficial</a>.</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Aparência -->
+                        <div class="config-section" id="appearance">
+                            <h2>Aparência</h2>
+                            
+                            <h3>Cores do Tema</h3>
+                            
+                            <div class="form-row">
+                                <div class="form-group color-picker">
+                                    <label for="primary-color">Cor Principal</label>
+                                    <input type="color" id="primary-color" name="primary-color" required>
+                                </div>
+                                
+                                <div class="form-group color-picker">
+                                    <label for="secondary-color">Cor Secundária</label>
+                                    <input type="color" id="secondary-color" name="secondary-color" required>
+                                </div>
+                                
+                                <div class="form-group color-picker">
+                                    <label for="accent-color">Cor de Destaque</label>
+                                    <input type="color" id="accent-color" name="accent-color" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group color-picker">
+                                    <label for="dark-color">Cor Escura</label>
+                                    <input type="color" id="dark-color" name="dark-color" required>
+                                </div>
+                                
+                                <div class="form-group color-picker">
+                                    <label for="light-color">Cor Clara</label>
+                                    <input type="color" id="light-color" name="light-color" required>
+                                </div>
+                            </div>
+                            
+                            <h3>Logotipo</h3>
+                            
+                            <div class="form-group">
+                                <label for="logo-upload">Logotipo</label>
+                                <div class="image-upload-container">
+                                    <input type="file" id="logo-upload" class="image-upload" data-target="logo-path" accept="image/*">
+                                    <input type="text" id="logo-path" name="logo-path" value="img/logo.png" required>
+                                    <button type="button" class="btn-upload" data-for="logo-upload">Escolher</button>
+                                </div>
+                                <div class="image-preview">
+                                    <img src="img/logo.png" alt="Logotipo" id="logo-preview">
+                                </div>
+                                <small>Tamanho recomendado: 150x70 pixels</small>
+                            </div>
+                        </div>
+                        
+                        <!-- Botões de Ação -->
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">Salvar Configurações</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; <span id="current-year">2025</span> Sistema de Agendamento Online. Todos os direitos reservados.</p>
+                <p>Desenvolvido por <a href="#" target="_blank">Sua Empresa</a></p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- JavaScript -->
+    <script src="js/config.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/config-panel.js"></script>
+</body>
+</html>
