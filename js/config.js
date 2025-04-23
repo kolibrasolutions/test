@@ -134,20 +134,23 @@ const bookingConfig = {
 
 // Configurações do Google Calendar (para integração)
 const googleCalendarConfig = {
+    // Ativar integração com Google Calendar
+    enabled: true,
+    
     // ID do calendário do Google
     calendarId: "primary",
     
     // Chave de API (será configurada pelo proprietário)
     apiKey: "",
     
-    // ID do cliente OAuth (será configurada pelo proprietário)
-    clientId: "",
+    // ID do cliente OAuth (já configurado com suas credenciais)
+    clientId: "517220858606-fsdpi7f482j7nqsqeq4sc79cifa15v3j.apps.googleusercontent.com",
+    
+    // Segredo do cliente (opcional, usado apenas em alguns casos)
+    clientSecret: "GOCSFX-WSYULOJMixfgP1yj_Vj0r4yLwz8G",
     
     // Escopos de acesso necessários
-    scopes: "https://www.googleapis.com/auth/calendar",
-    
-    // Ativar integração com Google Calendar
-    enabled: true
+    scopes: "https://www.googleapis.com/auth/calendar"
 };
 
 // Não modifique abaixo desta linha
